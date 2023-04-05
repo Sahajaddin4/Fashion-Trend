@@ -17,11 +17,11 @@ const productSchema=new mongoose.Schema({
         type:Number,
         required:true
     },
-    product_reviews:{
-        type:[String],
-        required:true
-    },
-    shopping_site:
+    // product_reviews:{
+    //     type:[String],
+    //     required:true
+    // },
+    product_sitename:
     {
         type:String,
         required:true
@@ -29,6 +29,6 @@ const productSchema=new mongoose.Schema({
 
 });
 
-var ProductCollection=mongoose.model('ProductCollection',productSchema);
+const ProductCollection=mongoose.model('ProductCollection',productSchema);
 
 module.exports= ProductCollection;
