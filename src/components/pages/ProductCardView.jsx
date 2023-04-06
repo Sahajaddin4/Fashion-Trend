@@ -1,15 +1,23 @@
 import React from 'react';
 import {Card,Button} from 'react-bootstrap';
 const ProductCardView = (props) => {
-    return (
+  
+  const{product_name,product_details,product_price,product_image}=props.product;
+   const image='http://localhost:5000/uploads/'+product_image;
+   
+      return (
        <>
         <Card  className='mt-3'>
-      <Card.Img variant="top" style={{ width:'200px' }}  src={props.product.product_image} alt='product image' />
+      <Card.Img variant="top" style={{ width:'200px' }}  src={image} alt='product image' />
       <Card.Body>
-        <Card.Title>{props.product.product_name}</Card.Title>
+        <Card.Title>{product_name}</Card.Title>
         <Card.Text >
-        {props.product.product_details}
+        {product_details}
         </Card.Text>
+        <Card.Text >
+        {product_price}
+        </Card.Text>
+
         <Button variant="primary">Go somewhere</Button>
       </Card.Body>
     </Card>

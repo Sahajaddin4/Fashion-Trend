@@ -58,13 +58,13 @@ router.post("/addproduct",upload.single('product_image'), (req,res)=>{
 
 //Get product from database
 router.get('/getproduct',async(req,res)=>{
-    const product_cattegory=(req.query.keyword);
-
+    const keyword=(req.query.keyword);
+   
     try {
-        const getProduct=await ProductCollection.find({product_cattegory:product_cattegory});
-        res.send(getProduct);
+    const getProduct=await ProductCollection.find({product_cattegory:keyword});
+        res.status(201).json({status:201,getProduct});
     } catch (error) {
-        console.log(error);
+        res.send(error);
     }
     
 })

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Container, Form,Button } from 'react-bootstrap';
 import axios from 'axios';
-import Home from '../pages/Home';
-const SearchBar = () => {
+
+const SearchBar = ({handleSearchQuery}) => {
      const [search,setSearch]=useState('');
-     const [products,setProducts]=useState([]);
+     
     function handleChange(event)
     {
         const search_product=event.target.value;
@@ -15,11 +15,15 @@ const SearchBar = () => {
 
    async function submitForm(e)
     {
-        const url=`http://localhost:5000/getproduct?keyword:${search}`;
+        const url=`http://localhost:5000/getproduct?keyword=${search}`;
         e.preventDefault();
         try {
-           const product= await axios.get(url);
-            setProducts(product);
+           const products= await axios.get(url,{
+            headers:{
+                "Content-Type":"application/json"
+            }
+           });
+            handleSearchQuery(products)
         } catch (error) {
             console.log(error)
         }
@@ -34,13 +38,13 @@ const SearchBar = () => {
                         placeholder="Search"
                         className="p-2 me-2"
                         aria-label="Search"
-                        autoComplete
+                        autoComplete="true"
                         onChange={handleChange}
                         
                     />
                     <Button variant="outline-success" type='submit' onClick={submitForm}>Search</Button>
                 </Form>
-                <Home products={products} />
+                
             </Container>
         </>
     );
