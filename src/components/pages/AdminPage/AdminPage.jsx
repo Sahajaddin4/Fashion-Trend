@@ -1,8 +1,10 @@
 import React, {  useState } from 'react';
+
 import { Form, Button, Container } from 'react-bootstrap';
 import axios from 'axios';
 const AdminPage = () => {
 
+    
     const[input,setInput]=useState({
         product_name:"",
         product_details:"",
@@ -54,8 +56,9 @@ const AdminPage = () => {
 
         const sendingUrl="http://localhost:5000/addproduct";
 
-        const res= await axios.post(sendingUrl,formdata,configImage);
-        console.log(res);
+         await axios.post(sendingUrl,formdata,configImage);
+         
+         
 
     }
 
@@ -86,7 +89,13 @@ const AdminPage = () => {
 
                     <Form.Group className="mb-3">
                         <Form.Label>From which website</Form.Label>
-                        <Form.Control name="product_sitename" onChange={handleInput} value={input.product_sitename} type="text" />
+                        <Form.Control name='product_sitename' value={input.product_sitename} onChange={handleInput} as="select" >
+                            <option value=""></option>
+                            <option value="Myntra" >Myntra</option>
+                            <option value="Ajio" >Ajio</option>
+                            <option value="Messo" >Messo</option>
+                            <option value="Flipkart" >Flipkart</option>
+                        </Form.Control>
                     </Form.Group>
 
                     <Form.Group className="mb-3">

@@ -49,7 +49,8 @@ router.post("/addproduct",upload.single('product_image'), (req,res)=>{
                 product_image:imageFile.filename
             });
     
-           addProduct.save().then(res=>{console.log("Image got saved.")}).catch(error=>{console.log(error);}); 
+           addProduct.save().then(()=>{console.log("Image got saved.");}).catch(error=>{console.log(error);});
+            
 
 })
 
@@ -58,10 +59,12 @@ router.post("/addproduct",upload.single('product_image'), (req,res)=>{
 
 //Get product from database
 router.get('/getproduct',async(req,res)=>{
-    const keyword=(req.query.keyword);
-   
+    const keyword=(req.query.keyword).substring(0,2);
+     const key=new RegExp('^'+keyword);
     try {
-    const getProduct=await ProductCollection.find({product_cattegory:keyword});
+    const getProduct=await ProductCollection.find({product_cattegory:{
+        $regex:key, $options:"i"
+    }});
         res.status(201).json({status:201,getProduct});
     } catch (error) {
         res.send(error);
