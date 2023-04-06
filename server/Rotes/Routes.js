@@ -55,8 +55,18 @@ router.post("/addproduct",upload.single('product_image'), (req,res)=>{
 
 
 
-// router.get('/addproduct',(req,res)=>{
-//     res.send('Working')
-// })
+
+//Get product from database
+router.get('/getproduct',async(req,res)=>{
+    const product_cattegory=(req.query.keyword);
+
+    try {
+        const getProduct=await ProductCollection.find({product_cattegory:product_cattegory});
+        res.send(getProduct);
+    } catch (error) {
+        console.log(error);
+    }
+    
+})
 
 module.exports=router;

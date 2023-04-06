@@ -1,10 +1,11 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 import { Container,Row,Col } from "react-bootstrap";
 import ProductCardView from "./ProductCardView";
 import SearchBar from "../Layouts/SearchBar";
 
 export default function Home()
 {
+    
     return (
         <>
           <Container fluid expand="md" bg="light" className="shadow  p-2" style={{marginTop:"5%", marginBottom:'5%'}} >
@@ -13,17 +14,17 @@ export default function Home()
             <Row >
                 <Col  md={5} className=" shadow mb-5 mt-5 p-2 border border-dark" style={{textAlign:"center"}}>
                 <Container className="shadow mt-2 mb-2 p-2"><header className="fs-3">Myntra</header> </Container>
-                    <ProductCardView />
+                    <ProductCardView product={props.products}  />
                 </Col>
                 <Col></Col>
-                <Col  md={5} className=" shadow mb-5 mt-5 p-2 border border-dark" style={{textAlign:"center"}}>
+                {/* <Col  md={5} className=" shadow mb-5 mt-5 p-2 border border-dark" style={{textAlign:"center"}}>
                       <Container className="shadow mt-2 mb-2 p-2"><header className="fs-3">Ajio</header> </Container>
                     <ProductCardView />
-                </Col>
+                </Col> */}
 
             </Row>
             <Row>
-                <Col  md={5} className=" shadow mb-5 mt-5 p-2 border border-dark" style={{textAlign:"center"}}>
+                {/* <Col  md={5} className=" shadow mb-5 mt-5 p-2 border border-dark" style={{textAlign:"center"}}>
                 <Container className="shadow mt-2 mb-2 p-2"><header className="fs-3">Messo</header> </Container>
                     <ProductCardView />
                 </Col>
@@ -31,7 +32,7 @@ export default function Home()
                 <Col  md={5} className=" shadow mb-5 mt-5 p-2 border border-dark" style={{textAlign:"center"}}>
                 <Container className="shadow mt-2 mb-2 p-2"><header className="fs-3">Flipkart</header> </Container>
                     <ProductCardView />
-                </Col>
+                </Col> */}
                 
             </Row>
             </Container>

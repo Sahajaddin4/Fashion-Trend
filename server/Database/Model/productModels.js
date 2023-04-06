@@ -25,6 +25,10 @@ const productSchema=new mongoose.Schema({
     {
         type:String,
         required:true
+    },
+    product_cattegory:{
+        type:String,
+        required:true
     }
 
 });
