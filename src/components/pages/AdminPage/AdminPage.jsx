@@ -2,9 +2,11 @@ import React, {  useState } from 'react';
 
 import { Form, Button, Container } from 'react-bootstrap';
 import axios from 'axios';
+
+
 const AdminPage = () => {
 
-    
+    //const navigate=useNavigation();
     const[input,setInput]=useState({
         product_name:"",
         product_details:"",
@@ -56,9 +58,15 @@ const AdminPage = () => {
 
         const sendingUrl="http://localhost:5000/addproduct";
 
-         await axios.post(sendingUrl,formdata,configImage);
+         const res=await axios.post(sendingUrl,formdata,configImage);
          
-         
+         if(res.status===201)
+         {
+           window.location.href="/";
+         }
+         else{
+            alert("!!alert !Data not saved in database.")
+         }
 
     }
 

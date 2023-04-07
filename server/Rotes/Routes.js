@@ -49,7 +49,13 @@ router.post("/addproduct",upload.single('product_image'), (req,res)=>{
                 product_image:imageFile.filename
             });
     
-           addProduct.save().then(()=>{console.log("Image got saved.");}).catch(error=>{console.log(error);});
+           addProduct.save().then(()=>{
+            res.status(201).json({status:201});
+            console.log("Image got saved.");
+        }).catch(error=>{
+            res.status(401).json({status:401});
+            console.log(error);
+        });
             
 
 })

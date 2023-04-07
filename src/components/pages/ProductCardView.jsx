@@ -18,7 +18,7 @@ const ProductCardView = (props) => {
         {product_price}
         </Card.Text>
 
-        <Button variant="primary">Go somewhere</Button>
+        <Button variant="primary" href='#'>checkout</Button>
       </Card.Body>
     </Card>
        </>
