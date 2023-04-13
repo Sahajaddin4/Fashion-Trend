@@ -1,5 +1,6 @@
 import React, {  useState } from 'react';
-
+import { ToastContainer, toast } from 'react-toastify';
+//import 'react-toastify/dist/ReactToastify.css';
 import { Form, Button, Container } from 'react-bootstrap';
 import axios from 'axios';
 
@@ -13,9 +14,14 @@ const AdminPage = () => {
         product_price:0,
         product_sitename:"",
         product_cattegory:"",
-        
+        product_reviews:[{}]
     })
 
+
+    const [review, setReview] = useState({
+        rating: 1,
+        comment: "",
+      });
   
     
     function handleInput(event)
@@ -29,6 +35,37 @@ const AdminPage = () => {
         });
     }
 
+
+
+    function handleReviews(event)
+    {
+        const {name}=event.target;
+        setReview(prevReviews=>{
+            return (
+                {
+                    ...prevReviews,
+                    [name]:event.target.value
+                }
+            )
+        })
+    }
+
+
+    function handleAddReviews(e)
+    {
+        e.preventDefault();
+        setInput(
+            {
+                ...input,
+            product_reviews:[...input.product_reviews,review]
+            }
+        )
+ 
+    }
+    
+
+
+
     const [image,setImage]=useState();
 
     function handleImage(event)
@@ -41,7 +78,8 @@ const AdminPage = () => {
     async function addProduct(e)
     {
         e.preventDefault();
-
+          const reviews=input.product_reviews.slice(1)  
+      
         const formdata=new FormData();
         formdata.append('product_name',input.product_name);
         formdata.append('product_details',input.product_details);
@@ -49,7 +87,8 @@ const AdminPage = () => {
         formdata.append('product_sitename',input.product_sitename);
         formdata.append('product_cattegory',input.product_cattegory);
         formdata.append('product_image',image);
-
+        formdata.append('product_reviews',JSON.stringify(reviews));
+       
         const configImage={
             headers:{
                 "content-type":"multipart/form-data"
@@ -58,16 +97,32 @@ const AdminPage = () => {
 
         const sendingUrl="http://localhost:5000/addproduct";
 
-         const res=await axios.post(sendingUrl,formdata,configImage);
-         
+        const res= await axios.post(sendingUrl,formdata,configImage)
+        
+       
+             
          if(res.status===201)
          {
-           window.location.href="/";
+            toast.success("Product added successfully",{
+                position:'top-center',
+                autoClose:3000,
+                theme: "dark"
+             })
+             setTimeout(() => {
+                window.location.href="/";
+            },2000);
+           
          }
-         else{
-            alert("!!alert !Data not saved in database.")
+         else if( res.status===401)
+         {
+            toast.error("Error !.. failed to add ,try again",{
+                position:'top-center',
+                autoClose:3000, 
+                theme: "dark"
+             })
          }
-
+        
+      
     }
 
 
@@ -108,7 +163,7 @@ const AdminPage = () => {
 
                     <Form.Group className="mb-3">
                         <Form.Label>Product image</Form.Label>
-                        <Form.Control name='product_image' onChange={handleImage} value={input.product_image} type="file" />
+                        <Form.Control name='product_image' onChange={handleImage}  type="file" />
                     </Form.Group>
 
                     <Form.Group className="mb-3">
@@ -120,11 +175,34 @@ const AdminPage = () => {
                             <option value="Pants" >Pants</option>
                         </Form.Control>
                     </Form.Group> 
+                    <br></br>
+                        <ul>
+                            {(input.product_reviews).map((re,index)=>{
+                                return (<li key={index}>
+                                    <strong>Comments:  </strong>{re.comment} <strong>Rating: </strong>{re.rating}
+                                </li>)
+                            })}
+                        </ul>
+                    <br></br>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Product Reviews</Form.Label>
+                        <Form.Control name='comment' onChange={handleReviews}  type="textarea" />
+                    </Form.Group>
 
-                    <Button variant="primary" onClick={addProduct} type="submit">
+                    <Form.Group className="mb-3">
+                        <Form.Label>Product Rating </Form.Label>
+                        <Form.Control name='rating' onChange={handleReviews}  type="number" min="1" max="5"/>
+                    </Form.Group>
+
+                    <Button variant="secondary" className='p-2 m-5' onClick={handleAddReviews}>
+                        Add reviews
+                    </Button>
+
+                    <Button variant="primary" className='p-2 m-5' onClick={addProduct} type="submit">
                         Add product
                     </Button>
                 </Form>
+                <ToastContainer />
             </Container>
         </>
     );

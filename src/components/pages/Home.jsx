@@ -61,7 +61,7 @@ export default function Home()
             </Row>
             <Row>
                 <Col  md={5} className=" shadow mb-5 mt-5 p-2 border border-dark" style={{textAlign:"center"}}>
-                <Container className="shadow mt-2 mb-2 p-2"><header className="fs-3">Messo</header> </Container>
+                <Container className="shadow mt-2 mb-2 p-2"><header className="fs-3 " style={{color:"#ff00bf"}}>Messo</header> </Container>
                    
                 <div className="d-flex flex-column" style={{ height: '400px', overflowY: 'scroll',textAlign:"left" }}>
                     {

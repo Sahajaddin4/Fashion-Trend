@@ -42,7 +42,7 @@ const SearchBar = ({handleSearchQuery}) => {
                         onChange={handleChange}
                         
                     />
-                    <Button variant="outline-success" type='submit' onClick={submitForm}>Search</Button>
+                    <Button variant="outline-success" type='submit' onClick={submitForm}><i className="fa-sharp fa-solid fa-magnifying-glass fa-beat-fade"></i></Button>
                 </Form>
                 
             </Container>
