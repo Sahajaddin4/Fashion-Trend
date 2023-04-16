@@ -60,6 +60,12 @@ const AdminPage = () => {
             product_reviews:[...input.product_reviews,review]
             }
         )
+        setReview(
+            {
+                rating: 1,
+                comment: "",
+            }
+        )
  
     }
     
@@ -109,7 +115,14 @@ const AdminPage = () => {
                 theme: "dark"
              })
              setTimeout(() => {
-                window.location.href="/";
+                setInput({
+                    product_name:"",
+        product_details:"",
+        product_price:0,
+        product_sitename:"",
+        product_cattegory:"",
+        product_reviews:[{}]
+                })
             },2000);
            
          }
@@ -120,6 +133,17 @@ const AdminPage = () => {
                 autoClose:3000, 
                 theme: "dark"
              })
+             setTimeout(() => {
+                setInput({
+                    product_name:"",
+        product_details:"",
+        product_price:0,
+        product_sitename:"",
+        product_cattegory:"",
+        product_reviews:[{}]
+                });
+            
+            },2000);
          }
         
       
@@ -186,12 +210,12 @@ const AdminPage = () => {
                     <br></br>
                     <Form.Group className="mb-3">
                         <Form.Label>Product Reviews</Form.Label>
-                        <Form.Control name='comment' onChange={handleReviews}  type="textarea" />
+                        <Form.Control name='comment' onChange={handleReviews} value={review.comment} type="textarea" />
                     </Form.Group>
 
                     <Form.Group className="mb-3">
                         <Form.Label>Product Rating </Form.Label>
-                        <Form.Control name='rating' onChange={handleReviews}  type="number" min="1" max="5"/>
+                        <Form.Control name='rating' onChange={handleReviews} value={review.rating} type="number" min="1" max="5"/>
                     </Form.Group>
 
                     <Button variant="secondary" className='p-2 m-5' onClick={handleAddReviews}>

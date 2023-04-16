@@ -1,6 +1,7 @@
 const User=require('../../Database/Model/userModel.js');
 //const passport=require('passport');
 const bcrypt=require('bcryptjs');
+const signToken = require('./JSONWEBTOKEN/jwtToken.js');
 
 async function register(req,res)
 {
@@ -26,8 +27,10 @@ async function register(req,res)
                 user_password:hashedPassword,
                
             })
+            
             await  newUser.save();
-            res.status(201).json({status:201});
+            const token=signToken(newUser);
+            res.status(201).json({status:201,user:user_name,auth:token});
             console.log("Account created")
         }catch(err)
         {

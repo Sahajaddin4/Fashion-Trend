@@ -1,13 +1,13 @@
-import React,{ useState} from "react";
+import React,{  useState} from "react";
 import { Container,Row,Col, } from "react-bootstrap";
 import ProductCardView from "./ProductCardView";
 import SearchBar from "../Layouts/SearchBar";
 export default function Home()
 {
     const [products,setProducts]=useState([]);
-
+    //const[isAuthenticated,setIsAuthenticated]=useState(false);
     function handleSearchQuery(props) {
-        setProducts(props.data.getProduct);
+       if(props.data.getProduct){ setProducts(props.data.getProduct)};
     }
    
     return (

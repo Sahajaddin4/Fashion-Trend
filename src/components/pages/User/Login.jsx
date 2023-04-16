@@ -4,7 +4,16 @@ import Button from 'react-bootstrap/Button';
 import { ToastContainer,toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import ResetPassword from './resetPassword';
 const Login = () => {
+
+   //reset password modal
+   const [showModal, setShowModal] = useState(false);
+
+   const resetpassword=()=>
+   {
+      setShowModal(true);
+   }
 
     const inputStyle = {
         border: 'none',
@@ -47,19 +56,20 @@ async function Login(e){
             "Content-Type":"application/json"
         }
     })
-   
-    console.log(res);
 
-    if(res.status===201)
+    if(res.status===201 && res.data.auth)
     {
+        localStorage.setItem("user",JSON.stringify(res.data.user));
+        localStorage.setItem("token",JSON.stringify(res.data.auth));
         toast.success('Welcome back !😍',{
             position:toast.POSITION.TOP_RIGHT,
             autoClose:3000,
             theme:'dark'
         })
+        console.log(res.data.auth);
 
         setTimeout(() => {
-            window.location.href="/loggedin";
+            window.location.href="/";
         },2000);
     }
     else if( res.status===401)
@@ -122,6 +132,10 @@ async function Login(e){
                             </Form.Group>
 
                             
+                            <div className='m-5'>
+                                <p onClick={resetpassword}>Forgot password?</p>
+                                <ResetPassword show={showModal} onHide={() => setShowModal(false)} />
+                            </div> 
                             <div className='m-5'>
                                 <p>Don't have an account ?<Link to={'/register'} ><strong >Sign up</strong></Link></p>
                             </div>

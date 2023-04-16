@@ -39,6 +39,29 @@ function handleInput(event)
 async function createAccount(e){
     e.preventDefault();
 
+  //Password should conatains number,alphabate,specaial character
+
+  const passwordRegex =/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,}$/; // password should contain at least 1 number, 1 alphabet, and 1 special character
+ 
+
+  if(!passwordRegex.test(userInput.user_password)){
+      toast.error('Password should contain at least one number, one alphabet, and one special character',{
+          position:toast.POSITION.TOP_RIGHT,
+          autoClose:3000,
+          theme:'dark'
+      });
+      setUserInput({
+          user_name:"",
+          user_email:"",
+          user_mobile:"",
+          user_password:"",
+          user_confirmPassword:""
+      });
+      return;
+  }
+
+
+
 if(userInput.user_password===userInput.user_confirmPassword){
     const userData = {
         user_name: userInput.user_name,
@@ -57,6 +80,8 @@ if(userInput.user_password===userInput.user_confirmPassword){
    // console.log(res.data.msg);
     if(res.status===201)
     {
+        localStorage.setItem("user",JSON.stringify(res.data.user));
+        localStorage.setItem("token",JSON.stringify(res.data.auth));
         toast.success('Account created successfully',{
             position:toast.POSITION.TOP_RIGHT,
             autoClose:3000,

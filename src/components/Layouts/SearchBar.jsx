@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Form,Button } from 'react-bootstrap';
 import axios from 'axios';
-
+import { ToastContainer,toast } from 'react-toastify';
 const SearchBar = ({handleSearchQuery}) => {
      const [search,setSearch]=useState('');
      
@@ -20,10 +20,25 @@ const SearchBar = ({handleSearchQuery}) => {
         try {
            const products= await axios.get(url,{
             headers:{
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                authorization:`bearer ${localStorage.getItem('token')}`
             }
            });
+          
+           if(products.data.getProduct){
             handleSearchQuery(products)
+           }
+           else{
+               toast.error("Please log in first!",{
+                position:toast.POSITION.TOP_RIGHT,
+                autoClose:3000,
+                theme:'light'
+               });
+               setTimeout(()=>{
+                window.location.href="/login"
+               },2000);
+           }
+          
         } catch (error) {
             console.log(error)
         }
@@ -44,7 +59,7 @@ const SearchBar = ({handleSearchQuery}) => {
                     />
                     <Button variant="outline-success" type='submit' onClick={submitForm}><i className="fa-sharp fa-solid fa-magnifying-glass fa-beat-fade"></i></Button>
                 </Form>
-                
+                <ToastContainer />
             </Container>
         </>
     );
