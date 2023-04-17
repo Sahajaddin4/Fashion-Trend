@@ -1,7 +1,6 @@
 const User=require('../../Database/Model/userModel.js');
-//const passport=require('passport');
 const bcrypt=require('bcryptjs');
-const signToken = require('./JSONWEBTOKEN/jwtToken.js');
+const sendGmail = require('./send Mail/sendMail.js');
 
 async function register(req,res)
 {
@@ -18,6 +17,12 @@ async function register(req,res)
         else{
 
                 try{
+                    const otp_generator=require('otp-generator');
+                    const OTP_LENGTH=6;
+                    const otp=otp_generator.generate(OTP_LENGTH,{digits:true,lowerCaseAlphabets:false,upperCaseAlphabets:false,
+                    specialChars:false
+                    })
+
             const hashedPassword=await bcrypt.hash(user_password,10);
             const newUser=new User({
                
@@ -25,13 +30,13 @@ async function register(req,res)
                 user_email:user_email,
                 user_mobile:user_mobile,
                 user_password:hashedPassword,
-               
+                otp:otp
             })
-            
-            await  newUser.save();
-            const token=signToken(newUser);
-            res.status(201).json({status:201,user:user_name,auth:token});
-            console.log("Account created")
+          
+            sendGmail(user_email,otp);
+           await  newUser.save();
+            res.status(201).json({status:201,email:user_email});
+            //console.log("Account created .Check you mail to verify your account.")
         }catch(err)
         {
             console.log(err);

@@ -8,7 +8,7 @@ import Contact from './pages/Contact';
 import AdminPage from './pages/AdminPage/AdminPage';
 import Login from './pages/User/Login';
 import Register from './pages/User/Register';
-
+import OtpVerify from './pages/User/VerifyOTP/otpVerify';
 function App() {
   return (
   <>
@@ -21,7 +21,7 @@ function App() {
       <Route path='/admin' element={<AdminPage />} />
       <Route path='/login' element={<Login />}/>
       <Route path='/register' element={<Register />}/>
-    
+      <Route path='/otp-verify' element={<OtpVerify />} />
     </Routes>
     </BrowserRouter>
     <Footer/>

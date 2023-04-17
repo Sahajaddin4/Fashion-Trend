@@ -80,15 +80,16 @@ if(userInput.user_password===userInput.user_confirmPassword){
    // console.log(res.data.msg);
     if(res.status===201)
     {
-        localStorage.setItem("user",JSON.stringify(res.data.user));
-        localStorage.setItem("token",JSON.stringify(res.data.auth));
-        toast.success('Account created successfully',{
-            position:toast.POSITION.TOP_RIGHT,
+        toast.success('Otp is sent to your gmail.',{
+            position:toast.POSITION.TOP_CENTER,
             autoClose:3000,
-            theme:'dark'
+            theme:'light'
         })
+
+        //save user gmail into local storage
+        localStorage.setItem('user_email',JSON.stringify(res.data.email));
         setTimeout(() => {
-            window.location.href="/";
+            window.location.href="/otp-verify";
         },2000);
     }
 

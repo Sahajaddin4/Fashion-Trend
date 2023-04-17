@@ -19,6 +19,13 @@ const userSchema = mongoose.Schema({
     user_password: {
         type: String,
         required: true
+    },
+    status:{
+        type:Number,
+        default:0
+    },
+    otp:{
+        type:Number
     }
 });
 

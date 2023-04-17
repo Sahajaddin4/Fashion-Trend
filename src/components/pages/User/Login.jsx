@@ -97,6 +97,23 @@ async function Login(e){
             window.location.href="/register";
         },2000);
     }
+
+
+    else if(res.data.msg==="Verify Account first . Check your gmail to verify")
+    {
+        toast.error("Verify Account first . Check your gmail to verify",{
+            position:toast.POSITION.TOP_RIGHT,
+            autoClose:3000,
+            theme:'dark'
+        })
+
+        //Save email to localstorage
+       localStorage.setItem('user_email',JSON.stringify(userData.user_email));
+    
+       setTimeout(()=>{
+        window.location.href="/otp-verify";
+       },2000);
+    }
    
 }
 

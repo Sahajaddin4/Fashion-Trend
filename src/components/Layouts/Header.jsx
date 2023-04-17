@@ -57,10 +57,12 @@ const Header = () => {
       setIsAuthenticated(false);
         toast.success('Account Log out successful',{
         position:'top-center',
-        autoClose:2000,
+        autoClose:3000,
         theme:'dark'
     })
-    window.location.reload();
+   setTimeout(()=>{
+     window.location.reload();
+   },3000) 
 
   }
     return (

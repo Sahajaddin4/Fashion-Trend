@@ -9,6 +9,7 @@ const analyse = require('./Analyze_Product_reviews/review_analyse.js');
 
 const isAuthenticated = require('./userRegistraionAndLogin/JSONWEBTOKEN/tokenVerify.js');
 const resetPassword = require('./userRegistraionAndLogin/handleResettingPass.js');
+const verifyOtp = require('./userRegistraionAndLogin/OTP verify/otpVerify.js');
 
 
 
@@ -30,5 +31,8 @@ router.post('/userlogin',Login);
 router.post('/resetpassword',resetPassword);
 
  //Analyse product review
- router.post('/reviewanalyse',isAuthenticated,analyse)
+ router.post('/reviewanalyse',isAuthenticated,analyse);
+
+ //Email verification
+ router.post('/verifyotp',verifyOtp);
 module.exports=router;
