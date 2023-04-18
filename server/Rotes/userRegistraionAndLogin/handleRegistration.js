@@ -24,13 +24,14 @@ async function register(req,res)
                     })
 
             const hashedPassword=await bcrypt.hash(user_password,10);
+            const hashedOtp=await bcrypt.hash(otp,8);
             const newUser=new User({
                
                 user_name:user_name,
                 user_email:user_email,
                 user_mobile:user_mobile,
                 user_password:hashedPassword,
-                otp:otp
+                otp:hashedOtp
             })
           
             sendGmail(user_email,otp);

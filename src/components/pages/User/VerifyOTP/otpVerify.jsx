@@ -18,7 +18,7 @@ const OtpVerify = () => {
     function handleUserOtp(event)
     {
         const {value}=event.target
-    setUserOtp(parseInt(value));
+    setUserOtp(value);
     }
 
 //Form submission for LOgin
@@ -96,7 +96,7 @@ async function verify(e){
 
                             <Form.Group className='m-3'>
                                 <div className="d-flex align-items-center">
-                                    <Form.Control style={inputStyle} className='m-1' type='number' onChange={handleUserOtp} name="otp" placeholder='enter password' />
+                                    <Form.Control style={inputStyle} className='m-1' type='text' onChange={handleUserOtp} name="otp" placeholder='enter otp' />
                                 </div>
                             </Form.Group>
 

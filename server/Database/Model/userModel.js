@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema({
         default:0
     },
     otp:{
-        type:Number
+        type:String
     }
 });
 

@@ -62,9 +62,9 @@ async function Login(e){
         localStorage.setItem("user",JSON.stringify(res.data.user));
         localStorage.setItem("token",JSON.stringify(res.data.auth));
         toast.success('Welcome back !😍',{
-            position:toast.POSITION.TOP_RIGHT,
+            position:toast.POSITION.TOP_CENTER,
             autoClose:3000,
-            theme:'dark'
+            theme:'light'
         })
         console.log(res.data.auth);
 
@@ -75,9 +75,9 @@ async function Login(e){
     else if( res.status===401)
     {
         toast.error('Error login 😢',{
-            position:toast.POSITION.TOP_RIGHT,
+            position:toast.POSITION.TOP_CENTER,
             autoClose:3000,
-            theme:'dark'
+            theme:'light'
         })
       
         setUserInput({
@@ -89,9 +89,9 @@ async function Login(e){
     else if(res.data.msg==="user not exists!")
     {
         toast.error('User not exist! please create an account first 😢',{
-            position:toast.POSITION.TOP_RIGHT,
+            position:toast.POSITION.TOP_CENTER,
             autoClose:3000,
-            theme:'dark'
+            theme:'light'
         })
         setTimeout(() => {
             window.location.href="/register";
@@ -102,9 +102,9 @@ async function Login(e){
     else if(res.data.msg==="Verify Account first . Check your gmail to verify")
     {
         toast.error("Verify Account first . Check your gmail to verify",{
-            position:toast.POSITION.TOP_RIGHT,
+            position:toast.POSITION.TOP_CENTER,
             autoClose:3000,
-            theme:'dark'
+            theme:'light'
         })
 
         //Save email to localstorage
@@ -119,7 +119,7 @@ async function Login(e){
 
     return (
         <>
-            <Container bg="dark" className=' mt-5 p-3'>
+            <Container bg="light" className=' mt-5 p-3'>
                 <Row>
                     <Col md={6} className='ms-auto me-auto'>
                         <Form className='shadow-lg p-2'>
