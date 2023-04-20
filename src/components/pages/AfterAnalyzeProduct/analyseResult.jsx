@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-export default  function AnalyzeResultShow(result) {
+export default  function AnalyzeResultShow(props) {
   const [show, setShow] = useState(true);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => 
+  
+    { setShow(false);
+      props.setResult();
+      
+    }
 
 
   return (
@@ -17,10 +22,10 @@ export default  function AnalyzeResultShow(result) {
           <Modal.Title>Product Analyze Report</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <ul>
-                {result.result.map((product,index)=>
+            <ul className='border'>
+                {props.result.map((product,index)=>
                 {
-                    return<li key={index}>
+                    return<li className='border m-1' key={index}>
                      <p><strong>Rank :{index+1}</strong>::{product.productName} </p>
                     </li>
                 })}

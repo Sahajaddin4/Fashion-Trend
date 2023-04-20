@@ -57,7 +57,7 @@ const ProductCardView = (props) => {
             check quality
           </Button>
 
-          {result && <AnalyzeResultShow result={result} />}
+          {result && <AnalyzeResultShow result={result} setResult={()=> setResult(null)}/>}
         </Card.Body>
       </Card>
       <ToastContainer />

@@ -66,7 +66,7 @@ async function Login(e){
             autoClose:3000,
             theme:'light'
         })
-        console.log(res.data.auth);
+      //  console.log(res.data.auth);
 
         setTimeout(() => {
             window.location.href="/";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { toast } from "react-toastify";
-
+import jwtDecode from 'jwt-decode';
 
 const Header = () => {
      const [loginIcon, setLoginIcon] = useState(false);
@@ -12,8 +12,19 @@ const Header = () => {
      const [isAuthenticated, setIsAuthenticated] = useState(false);
 
      useEffect(() => {
-          if (localStorage.getItem('token')) {
-               setIsAuthenticated(true);
+          const token=localStorage.getItem('token');
+          if (token) {
+               const decodedToken=jwtDecode(token);
+               if(decodedToken.exp *1000 <Date.now())
+               {
+                    localStorage.removeItem('user');
+                    localStorage.removeItem('token');
+                    setIsAuthenticated(false);
+               }
+               else{
+                   
+                    setIsAuthenticated(true);
+               }
           }
      }, [])
 
