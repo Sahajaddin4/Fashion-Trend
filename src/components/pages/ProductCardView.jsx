@@ -1,89 +1,68 @@
-import React from 'react';
-import {Card,Button} from 'react-bootstrap';
- import axios from 'axios'; 
- import { ToastContainer,toast } from 'react-toastify';
+import React, { useState } from 'react';
+import { Card, Button } from 'react-bootstrap';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import AnalyzeResultShow from './AfterAnalyzeProduct/analyseResult';
+
+const qualityAnalysis=[];
 const ProductCardView = (props) => {
-   
-  const{product_name,product_details,product_price,product_image,product_reviews}=props.product;
-   const image='http://localhost:5000/uploads/'+product_image;
-   
+  const { product_name, product_details, product_price, product_image, product_reviews } = props.product;
+  const image = 'http://localhost:5000/uploads/' + product_image;
+
+  const [result, setResult] = useState(null);
+
+  async function selectedProduct() {
+    const productName = product_name;
+    const reviews = await product_reviews.map((re) => {
+      return re.comment;
+    });
+     qualityAnalysis.push({
+      productName:productName,
+      reviews:reviews
+     })
+  }
+
+  async function sendForAnalyze() {
   
-   async function getProductId(){
-        const review=product_reviews.map((re)=>{
-          return (re.comment);
-        })
-        
 
-
-       const response=await axios.post('http://localhost:5000/reviewanalyse',review,{
-        headers:{
-          authorization:`bearer ${localStorage.getItem('token')}`
-        }
-       });
-
-    
-       if(response.data.msg==="unexpected error 😞 sorry for the inconvnience")
-       {
-          toast.error(response.data.msg,
-            {
-              position:'top-center',
-              theme:'dark',
-              autoClose:5000
-            })
-       }
-       else if(response.data.msg==="Very good quality product. you can but it.😍")
-       {
-        toast.success(response.data.msg,
-          {
-            position:'top-center',
-            theme:'dark',
-            autoClose:5000
-          })
-       }
-
-       else if(response.data.msg==="You can but not stricty recommended."){
-
-        toast.info(response.data.msg,
-          {
-            position:'top-center',
-            theme:'dark',
-            autoClose:5000
-          })
-       }
-
-       else
-       {
-        toast.warn(response.data.msg,
-          {
-            position:'top-center',
-            theme:'dark',
-            autoClose:5000
-          })
-       }
-
-
+    try {
+      const response = await axios.post('http://localhost:5000/reviewanalyse', qualityAnalysis, {
+        headers: {
+          authorization: `bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      setResult(response.data.result);
+    } catch (error) {
+      toast.error('unexpected error 😞 sorry for the inconvenience', {
+        position: 'top-center',
+        theme: 'dark',
+        autoClose: 5000,
+      });
     }
+  }
 
+  return (
+    <>
+      <Card className="mt-3">
+        <Card.Img variant="top" style={{ width: '200px' }} onClick={selectedProduct} src={image} alt="product image" />
+        <Card.Body>
+          <Card.Title>{product_name}</Card.Title>
+          <Card.Text>{product_details}</Card.Text>
+          <Card.Text>
+            <i className="fa-solid fa-indian-rupee-sign m-1"></i>
+            {product_price}
+          </Card.Text>
 
-      return (
-       <>
-          <Card  className='mt-3'>
-      <Card.Img variant="top" style={{ width:'200px' }} onClick={getProductId} src={image} alt='product image' />
-      <Card.Body>
-        <Card.Title>{product_name}</Card.Title>
-        <Card.Text >
-        {product_details}
-        </Card.Text>
-        <Card.Text >
-        <i className="fa-solid fa-indian-rupee-sign m-1"></i>{product_price}
-        </Card.Text>
+          <Button variant="primary" onClick={sendForAnalyze}>
+            check quality
+          </Button>
 
-        <Button variant="primary" href='#'>checkout</Button>
-      </Card.Body>
-    </Card>
-    <ToastContainer />
-       </>
-    );
-}
+          {result && <AnalyzeResultShow result={result} />}
+        </Card.Body>
+      </Card>
+      <ToastContainer />
+    </>
+  );
+};
 
 export default ProductCardView;

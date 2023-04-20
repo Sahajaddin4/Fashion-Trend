@@ -2,10 +2,11 @@ const User=require('../../Database/Model/userModel.js');
 const bcrypt=require('bcryptjs');
 const resetPassword=async(req,res)=>
 {
-    const {user_email,user_password}=req.body;
+    const {user_email}=req.body;
 
      const user=await User.findOne({user_email:user_email});
-
+     
+     
      if(user)
      {
         const hashedPassword=await bcrypt.hash(user_password,10);

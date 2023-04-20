@@ -71,10 +71,10 @@ const Header = () => {
                          <Navbar.Brand><i className="fa-sharp fa-solid fa-cart-shopping me-1" ></i>Fashion Trend</Navbar.Brand>
                          <Nav.Link href="/" onMouseOver={handleHomeMouseOver} onMouseOut={handleHomeMouseOut}>{home === true ? "Home" : <span className="material-symbols-outlined">Home</span>}</Nav.Link>
                          <Nav.Link href="/about" onMouseOver={handleAboutMouseOver} onMouseOut={handleAboutMouseOut} >{about === true ? "About us" : <i className="fa-solid fa-address-card"></i>}</Nav.Link>
-                         <Nav.Link href="/contact" onMouseOver={handleContactMouseOver} onMouseOut={handleContactMouseOut}>{contact === true ? "Contact us" : <span class="material-symbols-outlined">support_agent</span>}</Nav.Link>
+                         <Nav.Link href="/contact" onMouseOver={handleContactMouseOver} onMouseOut={handleContactMouseOut}>{contact === true ? "Contact us" : <span className="material-symbols-outlined">support_agent</span>}</Nav.Link>
                          <Nav.Link href="/admin" onMouseOver={handleAdminMouseOver} onMouseOut={handleAdminMouseOut}>{admin === true ? "Add Product" : <span className="material-symbols-outlined">add_box</span>}</Nav.Link>
                          {isAuthenticated === true ? 
-                         <NavDropdown title={<span class="material-symbols-outlined">
+                         <NavDropdown title={<span className="material-symbols-outlined">
                          face
                          </span>} >
                          <NavDropdown.ItemText>{localStorage.getItem('user')}</NavDropdown.ItemText>

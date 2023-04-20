@@ -1,13 +1,10 @@
 const Sentiment = require('sentiment');
 const sentiment = new Sentiment();
 
-async function analyse(req,res)
-{
-    const reviews=req.body;
-    
 
-try {
-  const results = reviews.map(review => sentiment.analyze(review));
+
+function analyzeProduct(productData) {
+    const results = productData.reviews.map(review => sentiment.analyze(review));
   
 const scores=[];
 results.forEach(score => {
@@ -17,29 +14,30 @@ results.forEach(score => {
 const totalScore=scores.reduce((prev,curr)=>prev+curr ,0);
 
 const averageScore=totalScore/scores.length;
-
-if(averageScore<0)
-{
-  res.json({msg:"Product is not good in quality.😢"});
-}
-else if(averageScore===0)
-{
-  res.json({msg:"Product quality is average not so good"});
+  return {
+    productName:productData.productName,
+    score:averageScore
+  }
 }
 
-
-else if(averageScore>0 && averageScore<3)
+async function analyse(req,res)
 {
-  res.json({msg:"You can but not stricty recommended."});
-}
+    const productData=req.body;
+   
+    try {
+    const result=productData.map((data)=>{
+      return analyzeProduct(data)
+    })
 
-else if(averageScore>=3)
-{
-  res.json({msg:"Very good quality product. you can but it.😍"});
-}
+    //console.log(result);
+     result.sort((a,b)=>{return b.score-a.score})
+      
+     res.json({result:result})
+
+  }
 
    
-} catch (error) {
+catch (error) {
    res.json({msg:"unexpected error 😞 sorry for the inconvnience"})
 }
 

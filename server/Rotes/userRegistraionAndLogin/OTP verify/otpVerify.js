@@ -15,7 +15,7 @@ const verifyOtp = async (req, res) => {
   //decode hashed otp from database
    const decodeHashedOtp=await bcrypt.compare(otp,user.otp);
   // Check if the user exists and the OTP matches
-  console.log(decodeHashedOtp);
+  
   if (decodeHashedOtp===true) {
     // Update the user's status to 1 and OTP to 0
     await User.updateOne({ user_email: user_email }, { status: 1  })
