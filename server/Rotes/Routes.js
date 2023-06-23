@@ -14,7 +14,7 @@ const verifyOtp = require('./userRegistraionAndLogin/OTP verify/otpVerify.js');
 
 
 //product add setup
-router.post("/addproduct",isAuthenticated,upload,product );
+router.post("/addproduct",upload,product );
 
 //Get product from database
 router.get('/getproduct',isAuthenticated,getProduct);

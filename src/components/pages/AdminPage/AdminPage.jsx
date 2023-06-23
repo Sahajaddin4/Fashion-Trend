@@ -145,6 +145,10 @@ const AdminPage = () => {
             
             },2000);
          }
+
+         else{
+            console.log(res.status);
+         }
         
       
     }

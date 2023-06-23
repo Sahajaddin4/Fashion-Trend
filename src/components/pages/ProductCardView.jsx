@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import AnalyzeResultShow from './AfterAnalyzeProduct/analyseResult';
 
 const qualityAnalysis=[];
+
 const ProductCardView = (props) => {
   const { product_name, product_details, product_price, product_image, product_reviews } = props.product;
   const image = 'http://localhost:5000/uploads/' + product_image;
@@ -13,11 +14,14 @@ const ProductCardView = (props) => {
 
   async function selectedProduct() {
     const productName = product_name;
+    const productPrice=product_price;
+ 
     const reviews = await product_reviews.map((re) => {
       return re.comment;
     });
      qualityAnalysis.push({
       productName:productName,
+      productPrice:productPrice,
       reviews:reviews
      })
   }

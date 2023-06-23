@@ -11,6 +11,14 @@ const Header = () => {
      const [home, setHome] = useState(false);
      const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+//navbar styling
+const customStyle={
+     position: 'fixed',
+     top: 0,
+     width: '100%'
+
+}
+
      useEffect(() => {
           const token=localStorage.getItem('token');
           if (token) {
@@ -77,7 +85,7 @@ const Header = () => {
      }
      return (
           <>
-               <Navbar bg="light" expand="lg" className="shadow " >
+               <Navbar bg="light" expand="lg" className="shadow " style={customStyle}>
                     <Container>
                          <Navbar.Brand><i className="fa-sharp fa-solid fa-cart-shopping me-1" ></i>Fashion Trend</Navbar.Brand>
                          <Nav.Link href="/" onMouseOver={handleHomeMouseOver} onMouseOut={handleHomeMouseOut}>{home === true ? "Home" : <span className="material-symbols-outlined">Home</span>}</Nav.Link>
@@ -85,9 +93,7 @@ const Header = () => {
                          <Nav.Link href="/contact" onMouseOver={handleContactMouseOver} onMouseOut={handleContactMouseOut}>{contact === true ? "Contact us" : <span className="material-symbols-outlined">support_agent</span>}</Nav.Link>
                          <Nav.Link href="/admin" onMouseOver={handleAdminMouseOver} onMouseOut={handleAdminMouseOut}>{admin === true ? "Add Product" : <span className="material-symbols-outlined">add_box</span>}</Nav.Link>
                          {isAuthenticated === true ? 
-                         <NavDropdown title={<span className="material-symbols-outlined">
-                         face
-                         </span>} >
+                         <NavDropdown title="Account" >
                          <NavDropdown.ItemText>{localStorage.getItem('user')}</NavDropdown.ItemText>
                          <NavDropdown.Item onClick={handleLogout}>log out</NavDropdown.Item>
                          </NavDropdown> :

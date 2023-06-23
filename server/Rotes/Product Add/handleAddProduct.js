@@ -21,8 +21,6 @@ const ProductCollection=require('../../Database/Model/productModels.js');
             });
 
            
-               
-            
 
           await addProduct.save().then(()=>{
             res.status(201).json({status:201});
@@ -31,7 +29,7 @@ const ProductCollection=require('../../Database/Model/productModels.js');
             res.status(401).json({status:401});
             console.log(error);
         });
-            
+       // console.log("error");    
 
     }
 

@@ -16,6 +16,7 @@ const totalScore=scores.reduce((prev,curr)=>prev+curr ,0);
 const averageScore=totalScore/scores.length;
   return {
     productName:productData.productName,
+    productPrice:productData.productPrice,
     score:averageScore
   }
 }
